@@ -1,0 +1,55 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v2.8.0
+    hooks:
+      - id: golangci-lint
+        args: [ '--timeout=10m' ]
+        exclude: '^internal/adapters/gui/|^cmd/streamgogambler/'
+
+  - repo: local
+    hooks:
+      - id: go-mod-tidy
+        name: go mod tidy
+        entry: go mod tidy
+        language: system
+        pass_filenames: false
+        files: \.go$
+
+      - id: go-build
+        name: go build (non-GUI packages)
+        entry: go build ./internal/domain/... ./internal/ports/... ./internal/application/...
+        language: system
+        pass_filenames: false
+        files: \.go$
+
+      - id: go-test
+        name: go test (non-CGO packages)
+        entry: go test -short ./internal/domain/... ./internal/ports/... ./internal/application/... ./internal/adapters/storage/...
+        language: system
+        pass_filenames: false
+        files: \.go$
+
+      - id: check-env-example
+        name: check .env.example exists
+        entry: python -c "import os; exit(0 if os.path.exists('.env.example') else 1)"
+        language: system
+        pass_filenames: false
+        files: \.env
+
+      - id: no-env-secrets
+        name: check no secrets in .env.example
+        entry: python -c "import re; content=open('.env.example').read(); secrets=re.findall(r'(oauth|token|password|secret).*=(?!your_|example|changeme).+', content, re.I); exit(1 if secrets else 0)"
+        language: system
+        pass_filenames: false
+        files: \.env\.example$
