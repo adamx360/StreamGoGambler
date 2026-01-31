@@ -1,0 +1,64 @@
+name: Auto Tag on Merge
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'CHANGELOG.md'
+
+permissions:
+  contents: write
+
+jobs:
+  auto-tag:
+    name: Create Tag from Changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from CHANGELOG.md
+        id: changelog
+        run: |
+          # Extract the first version number from CHANGELOG.md (format: ## [x.x.x])
+          VERSION=$(grep -oP '## \[\K[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md | head -1)
+          if [ -z "$VERSION" ]; then
+            echo "No version found in CHANGELOG.md"
+            exit 1
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "TAG=v$VERSION" >> $GITHUB_OUTPUT
+          echo "Found version: $VERSION"
+
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          TAG="${{ steps.changelog.outputs.TAG }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists"
+            echo "EXISTS=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag $TAG does not exist"
+            echo "EXISTS=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create and push tag
+        if: steps.check_tag.outputs.EXISTS == 'false'
+        run: |
+          TAG="${{ steps.changelog.outputs.TAG }}"
+          VERSION="${{ steps.changelog.outputs.VERSION }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git tag -a "$TAG" -m "Release $VERSION"
+          git push origin "$TAG"
+
+          echo "Created and pushed tag: $TAG"
+
+      - name: Skip tag creation
+        if: steps.check_tag.outputs.EXISTS == 'true'
+        run: |
+          echo "Skipping tag creation - ${{ steps.changelog.outputs.TAG }} already exists"

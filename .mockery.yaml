@@ -1,0 +1,21 @@
+dir: "internal/mocks"
+
+outpkg: "mocks"
+
+mockname: "Mock{{.InterfaceName}}"
+
+with-expecter: true
+
+resolve-type-alias: false
+disable-version-string: true
+issue-845-fix: true
+
+packages:
+  streamgogambler/internal/ports:
+    interfaces:
+      MessageSender:
+      ChatClient:
+      ConfigReader:
+      ConfigWriter:
+      ConfigStore:
+      StatsProvider:

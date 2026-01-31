@@ -1,0 +1,42 @@
+# Environment files (contains secrets)
+.env
+.env.local
+.env.*.local
+
+# Keep .env.example tracked
+!.env.example
+
+# Trusted users
+*.json
+
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/streamgogambler
+
+# Test artifacts
+*.test
+*.out
+coverage/
+coverage.html
+
+# IDE and tools
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs.txt
+
+# Dependency directories
+vendor/
