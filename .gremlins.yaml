@@ -1,0 +1,16 @@
+unleash:
+  threshold-efficacy: 80
+  threshold-mcover: 50
+
+  arithmetic-base: true
+  conditionals-boundary: true
+  conditionals-negation: true
+  increment-decrement: true
+  invert-negatives: true
+
+  invert-assignments: true
+  invert-bitwise: true
+  invert-bwassign: true
+  invert-logical: true
+  invert-loopctrl: true
+  remove-self-assignments: true

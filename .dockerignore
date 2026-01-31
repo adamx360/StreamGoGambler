@@ -1,0 +1,47 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+streamgogambler
+streamgogambler-*
+bin/
+
+# Test artifacts
+*.test
+*.out
+coverage/
+coverage.html
+testdata/
+
+# Environment (secrets)
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs.txt
+
+# Documentation
+*.md
+!README.md
+
+# CI/CD
+.github/
+
+# Editor config
+.editorconfig
+.pre-commit-config.yaml
+.golangci.yml
