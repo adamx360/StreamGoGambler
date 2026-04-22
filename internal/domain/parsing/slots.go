@@ -31,10 +31,10 @@ func ParseSlotsDelta(message, username string) (SlotsResult, bool) {
 		return SlotsResult{Delta: 60000, Outcome: OutcomeSuperJackpot}, true
 
 	case strings.Contains(lower, "jackpot"):
-		return SlotsResult{Delta: 20000, Outcome: OutcomeJackpot}, true
+		return SlotsResult{Delta: 15000, Outcome: OutcomeJackpot}, true
 
 	case strings.Contains(lower, "even a small win is a win"):
-		return SlotsResult{Delta: 6000, Outcome: OutcomeSmallWin}, true
+		return SlotsResult{Delta: 4000, Outcome: OutcomeSmallWin}, true
 
 	case strings.Contains(lower, "you at least got your points back"):
 		return SlotsResult{Delta: 2000, Outcome: OutcomeRefund}, true

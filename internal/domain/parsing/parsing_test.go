@@ -48,8 +48,8 @@ func TestParseSlotsDelta(t *testing.T) {
 	}{
 		{"lost", "testuser you lost everything", "testuser", 0, OutcomeLost, true},
 		{"refund", "testuser you at least got your points back", "testuser", 2000, OutcomeRefund, true},
-		{"small win", "testuser even a small win is a win", "testuser", 6000, OutcomeSmallWin, true},
-		{"jackpot", "testuser hit the jackpot!", "testuser", 20000, OutcomeJackpot, true},
+		{"small win", "testuser even a small win is a win", "testuser", 4000, OutcomeSmallWin, true},
+		{"jackpot", "testuser hit the jackpot!", "testuser", 15000, OutcomeJackpot, true},
 		{"super jackpot", "testuser hit the SUPER JACKPOT!", "testuser", 60000, OutcomeSuperJackpot, true},
 		{"wrong user", "otheruser you lost", "testuser", 0, "", false},
 		{"unknown", "testuser something random", "testuser", 0, "", false},
