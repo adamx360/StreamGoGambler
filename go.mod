@@ -4,7 +4,7 @@ go 1.25
 
 require (
 	fyne.io/fyne/v2 v2.7.2
-	github.com/gempir/go-twitch-irc/v4 v4.3.1
+	github.com/gempir/go-twitch-irc/v4 v4.4.1
 	github.com/joho/godotenv v1.5.1
 	github.com/stretchr/testify v1.11.1
 )
