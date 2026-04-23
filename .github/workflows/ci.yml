@@ -61,7 +61,7 @@ jobs:
         run: go tool cover -func=coverage.out
 
       - name: Upload coverage
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: coverage.out
@@ -241,7 +241,7 @@ jobs:
           go build -ldflags "$LDFLAGS" -o ${{ matrix.binary }} ./cmd/streamgogambler
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.binary }}
           path: ${{ matrix.binary }}
